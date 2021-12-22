@@ -1,0 +1,31 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model IEnumerable<MusicInstrument>
+
+<div class="text-center">
+    <h1 class="display-4">Welcome to music instruments shop</h1>
+    
+    <form asp-action="Instruments" method="get">
+        <div class="form-actions no-color">
+            <p>
+                Find by name: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
+                <input type="submit" value="Search" class="btn btn-primary" /> |
+                <a asp-action="Instruments">Back to Full List</a>
+            </p>
+        </div>
+    </form>
+
+    <table class="table table-condensed table-striped  col-md-6">
+        <thead><tr><th>Инструмент</th><th>Материал</th><th>Цена</th><th>Гарантия</th><th></th></tr></thead>
+        <tbody>
+            @foreach (MusicInstrument inst in Model)
+            {
+                <tr>
+                    <td>@inst.Name</td><td>@inst.Material</td><td>@inst.Price</td><td>@inst.WarrantySupported</td>
+                    <td><input type="button" class="btn btn-secondary" value="Подробнее" onclick="location.href='@Url.Action("details", "musicshop", inst)'" /></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
